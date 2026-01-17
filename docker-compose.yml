@@ -1,0 +1,24 @@
+services:
+  # 1. Bizim Web Sitemiz (Nginx)
+  websitem:
+    image: nginx:latest
+    container_name: jarvis-web
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html
+
+  # 2. İzleme Sistemi (Uptime Kuma)
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: jarvis-monitor
+    restart: always
+    ports:
+      - "3001:3001"
+    volumes:
+      - kuma-data:/app/data
+
+# Verilerin kaybolmaması için depo alanı tanımı
+volumes:
+  kuma-data:
